@@ -16,7 +16,6 @@ on:
         # The data type of the input
         type: string
 
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -54,13 +53,20 @@ jobs:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD}}
-          
-      # 发布安装包
+
       - name: Release Packages
-        uses: ncipollo/release-action@v1
+        uses: ncipollo/release-action@main
+        if: ${{ env.PACKAGED_STATUS }} == 'success' && !cancelled()
         with:
+          tag: v1.1.5+15
             artifacts: "build/app/outputs/flutter-apk/app-*.apk"
             allowUpdates: true
+          removeArtifacts: false
+          replacesArtifacts: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+          body: |
+           For amlogic armbian.
+
             
       - name: Build Linux-x64
         run: 
