@@ -54,20 +54,6 @@ jobs:
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD}}
 
-      - name: Release Packages
-        uses: ncipollo/release-action@main
-        if: ${{ env.PACKAGED_STATUS }} == 'success' && !cancelled()
-        with:
-          tag: v1.1.5+15
-          artifacts: "build/app/outputs/flutter-apk/app-*.apk"
-          allowUpdates: true
-          removeArtifacts: false
-          replacesArtifacts: true
-          token: ${{ secrets.GITHUB_TOKEN }}
-          body: |
-           For amlogic armbian.
-
-            
       - name: Build Linux-x64
         run: 
           sudo apt-get update -y
@@ -79,4 +65,30 @@ jobs:
           chmod +x appimage-builder-x86_64.AppImage
           sudo mv appimage-builder-x86_64.AppImage /usr/local/bin/appimage-builder
           appimage-builder --recipe AppImageBuilder.yml
+
        
+      - name: Release Packages
+        uses: ncipollo/release-action@main
+        if: ${{ env.PACKAGED_STATUS }} == 'success' && !cancelled()
+        with:
+          tag: v1.1.5
+          artifacts: "build/app/outputs/flutter-apk/app-*.apk"
+          allowUpdates: true
+          removeArtifacts: false
+          replacesArtifacts: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+          body: |
+           Test
+           
+      - name: Release Packages
+        uses: ncipollo/release-action@main
+        if: ${{ env.PACKAGED_STATUS }} == 'success' && !cancelled()
+        with:
+          tag: v1.1.5+linux-x64
+          artifacts: "AppDir/*.appimage"
+          allowUpdates: true
+          removeArtifacts: false
+          replacesArtifacts: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+          body: |
+           Test
