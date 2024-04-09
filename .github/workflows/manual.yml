@@ -46,3 +46,12 @@ jobs:
         env:
           ENCODED_KEYSTORE: ${{ secrets.KEYSTORE }}
           
+      - run: flutter pub get
+      # 打包apk
+      - name: Collect Apks
+        run: flutter build apk --release --split-per-abi
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD}}
+          
