@@ -53,8 +53,8 @@ jobs:
       - run:    sudo mv appimage-builder-x86_64.AppImage /usr/local/bin/appimage-builder
      #- run:    appimage-builder --appdir AppDir
 
-      - run:    appimage-builder --generate --skip-test
-      - run:    appimage-builder --recipe AppImageBuilder.yml 
+      #- run:    appimage-builder --generate --skip-test
+      #- run:    appimage-builder --recipe AppImageBuilder.yml 
       
       - run:    tar -cvf bili_you.tar AppDir
       - run:    wget -O BiliYou-x86_64.AppImage https://github.com/lucinhu/bili_you/releases/download/v1.1.5%2B15/BiliYou-x86_64.AppImage
@@ -62,8 +62,8 @@ jobs:
       - run:    ./BiliYou-x86_64.AppImage --appimage-extract
       - run:    rm -rf BiliYou-x86_64.AppImage || true
       - run:    tar -cvf bili_you_x64.tar squashfs-root
-      - run:    appimage-builder --appdir squashfs-root
-      - run:    mv *.AppImage *_aimg.tar
+      #- run:    appimage-builder --appdir squashfs-root
+      #- run:    mv *.AppImage *_aimg.tar
       
       - name: Release Packages
         uses: ncipollo/release-action@main
