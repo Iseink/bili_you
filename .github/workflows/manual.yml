@@ -57,8 +57,8 @@ jobs:
       - run:    chmod +x BiliYou-x86_64.AppImage
       - run:    ./BiliYou-x86_64.AppImage --appimage-extract
       - run:    rm -rf BiliYou-x86_64.AppImage || true
-      - run:    tar -cvf bili_you_x64.tar AppDirsquashfs-root
-      - run:    appimage-builder --appdir AppDirsquashfs-root
+      - run:    tar -cvf bili_you_x64.tar squashfs-root
+      - run:    appimage-builder --appdir squashfs-root
       - run:    mv *.AppImage *_aimg.tar
       
       - name: Release Packages
