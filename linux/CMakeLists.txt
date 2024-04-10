@@ -1,5 +1,8 @@
 # Project-level configuration.
 cmake_minimum_required(VERSION 3.10)
+set(TARGET_ARCHITECTURE "arm64")
+set(CMAKE_EXE_LINKER_FLAGS "-fuse-ld=gold")
+set(CMAKE_CXX_COMPILER  aarch64-linux-gnu-g++)
 project(runner LANGUAGES CXX)
 
 # The name of the executable created for the application. Change this to change
