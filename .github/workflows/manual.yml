@@ -51,9 +51,16 @@ jobs:
       - run:    wget -O appimage-builder-x86_64.AppImage https://github.com/AppImageCrafters/appimage-builder/releases/download/v1.0.0-beta.1/appimage-builder-1.0.0-677acbd-x86_64.AppImage 
       - run:    chmod +x appimage-builder-x86_64.AppImage
       - run:    sudo mv appimage-builder-x86_64.AppImage /usr/local/bin/appimage-builder
-      #- run:    appimage-builder --appdir AppDir
-      - run:     tar -cvf bili_you.tar AppDir
-           
+     #- run:   appimage-builder --appdir AppDir
+      - run:    tar -cvf bili_you.tar AppDir
+      - run:    wget -O BiliYou-x86_64.AppImage https://github.com/lucinhu/bili_you/releases/download/v1.1.5%2B15/BiliYou-x86_64.AppImage
+      - run:    chmod +x BiliYou-x86_64.AppImage
+      - run:    ./BiliYou-x86_64.AppImage --appimage-extract
+      - run:    rm -rf BiliYou-x86_64.AppImage || true
+      - run:    tar -cvf bili_you_x64.tar AppDirsquashfs-root
+      - run:    appimage-builder --appdir AppDirsquashfs-root
+      - run:    mv *.AppImage *_aimg.tar
+      
       - name: Release Packages
         uses: ncipollo/release-action@main
         if: ${{ env.PACKAGED_STATUS }} == 'success' && !cancelled()
